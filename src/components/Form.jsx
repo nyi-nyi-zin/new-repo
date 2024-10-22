@@ -1,66 +1,40 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const Form = (props) => {
-  const [name, setName] = useState("");
-  const [live, setLive] = useState("");
-  const [age, setAge] = useState("");
-
-  const nameHandler = (event) => {
-    setName(event.target.value);
-  };
-  const liveHandler = (event) => {
-    setLive(event.target.value);
-  };
-  const ageHandler = (event) => {
-    setAge(event.target.value);
-  };
+  const nameRef = useRef("");
+  const liveRef = useRef("");
+  const ageRef = useRef("");
 
   const addUser = (event) => {
     event.preventDefault();
 
     if (
-      name.trim().length === 0 ||
-      live.trim().length === 0 ||
-      age.trim().length === 0
+      nameRef.current.value.trim().length === 0 ||
+      liveRef.current.value.trim().length === 0 ||
+      ageRef.current.value.trim().length === 0
     ) {
       alert("Add FUll detail");
       return;
     }
 
     const data = {
-      name,
-      live,
-      age,
+      name: nameRef.current.value,
+      live: liveRef.current.value,
+      age: ageRef.current.value,
     };
 
     props.addWorker(data);
-
-    setName("");
-    setLive("");
-    setAge("");
   };
 
   return (
     <>
       <form className="input-box" onSubmit={addUser}>
-        <input
-          type="text"
-          placeholder="name"
-          onChange={nameHandler}
-          value={name}
-        />
-        <input
-          type="text"
-          placeholder="live"
-          onChange={liveHandler}
-          value={live}
-        />
-        <input
-          type="text"
-          placeholder="age"
-          onChange={ageHandler}
-          value={age}
-        />
+        <input type="text" placeholder="name" ref={nameRef} />
+
+        <input type="text" placeholder="live" ref={liveRef} />
+
+        <input type="text" placeholder="age" ref={ageRef} />
+
         <button type="submit">Add User</button>
       </form>
     </>

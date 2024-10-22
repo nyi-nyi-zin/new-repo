@@ -5,9 +5,10 @@ const Worker = (props) => {
   return (
     <div className="result">
       Name: {name}
-      <br></br>
+      <br />
       Live: {live}
-      age:{age}
+      <br />
+      Age:{age}
     </div>
   );
 };
